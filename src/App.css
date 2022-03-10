@@ -58,10 +58,17 @@ body {
   max-width: 400px;
 }
 
+@media only screen and (max-width: 768px) {
+  .noteImage {
+    width: 90%;
+  }
+}
+
 .buttonBox {
   width: 100%;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .noteButton {
