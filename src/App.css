@@ -15,12 +15,16 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+body {
+  background-color: #282c34;
   color: white;
 }
 
@@ -35,4 +39,44 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.fullwidth {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.noteContainer {
+  width: 100%;
+}
+
+.noteImage {
+  filter: invert(1);
+  width: 50%;
+  max-width: 400px;
+}
+
+.buttonBox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.noteButton {
+  cursor: pointer;
+  padding: 10px 18px;
+  margin: 5px;
+  border-radius: 5px;
+  background-color: #4a5260;
+  font-size: 28px;
+}
+
+.correct {
+  color: #51bf68;
+}
+
+.false {
+  color: #d34d4d;
 }
