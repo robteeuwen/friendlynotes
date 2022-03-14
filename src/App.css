@@ -87,3 +87,11 @@ body {
 .false {
   color: #d34d4d;
 }
+
+.active {
+  border: 2px solid #2587ea
+}
+
+.inactive {
+  border: 2px solid #a7a7ad
+}
