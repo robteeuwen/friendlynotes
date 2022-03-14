@@ -10,7 +10,6 @@ class NoteGuesser extends Component {
             last_response: 'none',
             streak: 0,
             question_number: 0,
-            random_note_id: 0,
 
             note: {},
 
@@ -26,6 +25,13 @@ class NoteGuesser extends Component {
     }
 
     updateNote() {
+        /**
+         * selects a note to be displayed in the next challenge.
+         *
+         * this is based on active ranges.
+         *
+         * @type {string[]}
+         */
         // filter note info to only the ranges we selected
         // all_ranges will be in form: ['range3', 'range4'], containing all ranges that have been initialized
         let all_ranges = Object.keys(this.state.ranges)
@@ -46,7 +52,6 @@ class NoteGuesser extends Component {
         const max = noteids.length
         const rand = Math.floor( Math.random() * max);
         this.setState({
-            random_note_id: noteids[rand],
             note: active_notes[rand]
         });
     }
@@ -68,12 +73,11 @@ class NoteGuesser extends Component {
     }
 
     toggleRange(range) {
-        let ranges = this.state.ranges
-        ranges[range] = !this.state.ranges[range]
+        let new_ranges = this.state.ranges
+        new_ranges[range] = !this.state.ranges[range]
+
         this.setState({
-            ranges: ranges
-        }, () => {
-            this.updateNote()
+            ranges: new_ranges
         })
     }
 
@@ -82,6 +86,19 @@ class NoteGuesser extends Component {
     }
 
     render() {
+        // check if at least 1 range is active
+        let active_ranges = Object.values(this.state.ranges).filter(Boolean).length
+        let noteviewer
+        if (active_ranges > 0) {
+            noteviewer = <NoteViewer
+                handleResponse={this.handleResponse}
+                ranges={this.state.ranges}
+                updateNote={this.updateNote}
+                note={this.state.note}
+            />
+        } else {
+            noteviewer = <div>You must select at least 1 range</div>
+        }
         return (
             <div>
                 <h2>last response: <span className={this.state.last_response}>{this.state.last_response}</span></h2>
@@ -92,12 +109,7 @@ class NoteGuesser extends Component {
                     <RangeButton toggleRange={this.toggleRange} range={'range4'} is_active={this.state.ranges.range4} />
                     <RangeButton toggleRange={this.toggleRange} range={'range5'} is_active={this.state.ranges.range5} />
                 </div>
-                <NoteViewer
-                    handleResponse={this.handleResponse}
-                    ranges={this.state.ranges}
-                    updateNote={this.updateNote}
-                    note={this.state.note}
-                />
+                {noteviewer}
             </div>
         );
     }
