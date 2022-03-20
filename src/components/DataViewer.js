@@ -66,8 +66,8 @@ class DataViewer extends Component {
         };
 
         return (
-            <div class="fullwidth">
-                <div class="chartcontainer">
+            <div className="fullwidth">
+                <div className="chartcontainer">
                     <Bar data={data} options={options} />
                 </div>
             </div>
