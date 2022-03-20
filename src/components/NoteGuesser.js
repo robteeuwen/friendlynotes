@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import NoteViewer from "./NoteViewer";
 import RangeButton from "./RangeButton";
 import {note_info} from "./NoteInfo";
+import DataViewer from "./DataViewer";
 
 class NoteGuesser extends Component {
     constructor(props) {
@@ -124,6 +125,7 @@ class NoteGuesser extends Component {
                     <RangeButton toggleRange={this.toggleRange} range={'range5'} is_active={this.state.ranges.range5} />
                 </div>
                 {noteviewer}
+                <DataViewer note_info={this.state.note_info} />
             </div>
         );
     }
