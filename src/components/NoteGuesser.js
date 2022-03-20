@@ -17,7 +17,9 @@ class NoteGuesser extends Component {
                 range3: true,
                 range4: true,
                 range5: true,
-            }
+            },
+
+            note_info: note_info,
         }
         this.handleResponse = this.handleResponse.bind(this)
         this.toggleRange = this.toggleRange.bind(this)
@@ -57,17 +59,28 @@ class NoteGuesser extends Component {
     }
 
     handleResponse(result) {
+        let _note_info = this.state.note_info
+        let i = this.state.note.index
+        _note_info[i].times_challenged = _note_info[i].times_challenged + 1
+
         if (result === 1) {
+            _note_info[i].times_correct = _note_info[i].times_correct + 1
+            _note_info[i].score = _note_info[i].times_correct / _note_info[i].times_challenged
+
             this.setState(prevState => ({
                 last_response: 'correct',
                 streak: prevState.streak + 1,
                 question_number: prevState.question_number + 1,
+                note_info: _note_info,
             }))
         } else {
+            _note_info[i].score = _note_info[i].times_correct / _note_info[i].times_challenged
+
             this.setState(prevState => ({
                 last_response: 'false',
                 streak: 0,
                 question_number: prevState.question_number + 1,
+                note_info: _note_info,
             }))
         }
     }
@@ -86,6 +99,7 @@ class NoteGuesser extends Component {
     }
 
     render() {
+        console.log(note_info)
         // check if at least 1 range is active
         let active_ranges = Object.values(this.state.ranges).filter(Boolean).length
         let noteviewer

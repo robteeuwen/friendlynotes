@@ -49,6 +49,7 @@ const notes = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 
 let note_info = Array()
 
+let counter = 0
 ranges.forEach(range => {
     notes.forEach(note => {
         note_info.push({
@@ -56,8 +57,12 @@ ranges.forEach(range => {
             'name': note + range,
             'note': note,
             'range': range,
-            'score': 0
+            'score': 0,
+            'times_challenged': 0,
+            'times_correct': 0,
+            'index': counter,
         })
+        counter = counter + 1
     })
 })
 
