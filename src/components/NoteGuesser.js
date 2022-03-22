@@ -3,6 +3,7 @@ import NoteViewer from "./NoteViewer";
 import RangeButton from "./RangeButton";
 import {note_info} from "./NoteInfo";
 import DataViewer from "./DataViewer";
+import amplitude from "amplitude-js";
 
 class NoteGuesser extends Component {
     constructor(props) {
@@ -64,6 +65,8 @@ class NoteGuesser extends Component {
         let i = this.state.note.index
         _note_info[i].times_challenged = _note_info[i].times_challenged + 1
 
+        amplitude.getInstance().logEvent('Challenge completed', {'result': result});
+
         if (result === 1) {
             _note_info[i].times_correct = _note_info[i].times_correct + 1
             _note_info[i].score = _note_info[i].times_correct / _note_info[i].times_challenged
@@ -89,6 +92,8 @@ class NoteGuesser extends Component {
     toggleRange(range) {
         let new_ranges = this.state.ranges
         new_ranges[range] = !this.state.ranges[range]
+
+        amplitude.getInstance().logEvent('Range toggled');
 
         this.setState({
             ranges: new_ranges
